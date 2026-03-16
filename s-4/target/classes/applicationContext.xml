@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- ===== Constructor Injection Example ===== -->
+    <!-- Student bean created using Constructor Injection -->
+    <!-- All values are injected through the constructor -->
+    <bean id="studentConstructor" class="com.example.model.Student">
+        <constructor-arg name="studentId" value="101"/>
+        <constructor-arg name="name" value="Aman Kumar"/>
+        <constructor-arg name="course" value="B.Tech Computer Science"/>
+        <constructor-arg name="year" value="2"/>
+    </bean>
+
+    <!-- ===== Setter Injection Example ===== -->
+    <!-- Student bean created using Setter Injection -->
+    <!-- Default constructor is called first, then setters are called -->
+    <bean id="studentSetter" class="com.example.model.Student">
+        <property name="studentId" value="102"/>
+        <property name="name" value="Priya Singh"/>
+        <property name="course" value="B.Tech Information Technology"/>
+        <property name="year" value="3"/>
+    </bean>
+
+    <!-- ===== Mixed Injection Example ===== -->
+    <!-- Using both constructor and setter for different fields -->
+    <bean id="studentMixed" class="com.example.model.Student">
+        <constructor-arg name="studentId" value="103"/>
+        <constructor-arg name="name" value="Raj Patel"/>
+        <constructor-arg name="course" value="B.Tech"/>
+        <constructor-arg name="year" value="1"/>
+        <property name="course" value="B.Tech Electronics"/>
+        <property name="year" value="2"/>
+    </bean>
+
+</beans>

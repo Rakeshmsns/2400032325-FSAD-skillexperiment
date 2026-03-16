@@ -1,0 +1,282 @@
+{
+  "info": {
+    "name": "Course CRUD API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Valid and invalid test cases for Course CRUD endpoints"
+  },
+  "item": [
+    {
+      "name": "Create Course - Valid",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"courseId\": 101,\n  \"title\": \"Data Structures\",\n  \"duration\": \"12 weeks\",\n  \"fee\": 4999\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 201 CREATED', function () {",
+              "  pm.response.to.have.status(201);",
+              "});",
+              "pm.test('Response success true', function () {",
+              "  const res = pm.response.json();",
+              "  pm.expect(res.success).to.eql(true);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create Course - Invalid (missing title)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"courseId\": 102,\n  \"duration\": \"8 weeks\",\n  \"fee\": 3500\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 400 BAD_REQUEST', function () {",
+              "  pm.response.to.have.status(400);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get All Courses",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/courses",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Course by Id - Valid",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/courses/101",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses",
+            "101"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Course by Id - Invalid",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/courses/999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses",
+            "999"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 404 NOT_FOUND', function () {",
+              "  pm.response.to.have.status(404);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Update Course - Valid",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"courseId\": 101,\n  \"title\": \"Advanced Data Structures\",\n  \"duration\": \"14 weeks\",\n  \"fee\": 5500\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/courses/101",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses",
+            "101"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Course - Invalid (not found)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"courseId\": 999,\n  \"title\": \"Ghost Course\",\n  \"duration\": \"1 week\",\n  \"fee\": 100\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/courses/999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses",
+            "999"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 404 NOT_FOUND', function () {",
+              "  pm.response.to.have.status(404);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Search Courses by Title",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/courses/search/Data",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses",
+            "search",
+            "Data"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Course - Valid",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseUrl}}/courses/101",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses",
+            "101"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Course - Invalid",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseUrl}}/courses/101",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "courses",
+            "101"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 404 NOT_FOUND', function () {",
+              "  pm.response.to.have.status(404);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}
