@@ -1,0 +1,4 @@
+com\example\XMLConfigMain.class
+com\example\AnnotationConfigMain.class
+com\example\model\Student.class
+com\example\config\StudentConfig.class
